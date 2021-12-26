@@ -1,6 +1,7 @@
 import logging
 from aiogram import Bot, Dispatcher, executor, types
-
+from keyboard import coin_board
+from coins_init import  get_btc, get_eth, get_ton
 API_TOKEN = '5010835487:AAH1cu1QtZzRZHi0RSWUdZzBM4VDzHPIgt0'
 
 # Configure logging
@@ -19,9 +20,11 @@ async def send_welcome(message: types.Message):
     await message.answer("Привет, я бот крипто-информатор! \n Что тебя интересует?", reply_markup=coin_board)
 
 
-@dp.message_handler()
-async def echo(message: types.Message):
-    await message.answer(message.text)
+@dp.message_handler(text='BTC/USD')
+async def btc(message: types.Message):
+    btc = get_btc()
+    message_ = f"{btc.baseCurrency}/{btc.quoteCurrency}\nТекущая цена: {btc.price}$\nИзменение в цене за последний час: {btc.change1h}\nИзменение в цене за последние сутки: {btc.change24h}"
+    await message.answer(message_)
 
 @dp.message_handler(text='ETH/USD')
 async def eth(message: types.Message):
