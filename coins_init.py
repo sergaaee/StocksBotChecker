@@ -39,11 +39,17 @@ result = r.json()['result']
 ton = coin(baseCurrency=result[570]['baseCurrency'], quoteCurrency=result[570]['quoteCurrency'], price=result[570]['price'], change1h=round(result[570]['change1h'], 4)*100, change24h=round(result[570]['change24h'], 4)*100)
 print(ton.baseCurrency, ton.quoteCurrency, ton.price, ton.change1h, ton.change24h)
 
-btc = coin(baseCurrency=result[150]['baseCurrency'], quoteCurrency=result[150]['quoteCurrency'], price=result[150]['price'], change1h=round(result[150]['change1h'], 4)*100, change24h=round(result[150]['change24h'], 4)*100)
-print(btc.baseCurrency, btc.quoteCurrency, btc.price, btc.change1h, btc.change24h)
+def get_ton():
+    url = 'https://ftx.com/api/markets'
+    r = requests.get(url)
+    result = r.json()['result']
+    ton = coin(baseCurrency=result[570]['baseCurrency'], quoteCurrency=result[570]['quoteCurrency'],
+               price=result[570]['price'], change1h=round(result[570]['change1h'], 4) * 100,
+               change24h=round(result[570]['change24h'], 4) * 100)
+    return ton
 
-eth = coin(baseCurrency=result[260]['baseCurrency'], quoteCurrency=result[260]['quoteCurrency'], price=result[260]['price'], change1h=round(result[260]['change1h'], 4)*100, change24h=round(result[260]['change24h'], 4)*100)
-print(eth.baseCurrency, eth.quoteCurrency, eth.price, eth.change1h, eth.change24h)
+
+
 
 #pos=0
 #for answer in result:
