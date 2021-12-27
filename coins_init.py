@@ -63,8 +63,6 @@ def get_ton():
     return ton
 
 
-
-
 # pos=0
 # for answer in result:
 # pos += 1

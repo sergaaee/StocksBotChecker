@@ -17,26 +17,51 @@ async def send_welcome(message: types.Message):
     """
     This handler will be called when user sends `/start` or `/help` command
     """
-    await message.answer("Привет, я бот крипто-информатор! \n Что тебя интересует?", reply_markup=coin_board)
+    await message.reply("Привет, я бот крипто-информатор! \n Что тебя интересует?", reply_markup=coin_board)
 
 
+#For chats btc
+@dp.message_handler(commands=["btc"])
+async def btc(message: types.Message):
+    btc = get_btc()
+    message_ = f"{btc.baseCurrency}/{btc.quoteCurrency}\nТекущая цена: {btc.price}$\nИзменение в цене за последний час: {btc.change1h}\nИзменение в цене за последние сутки: {btc.change24h}"
+    await message.reply(message_)
+
+#For 1v1 dialog btc
 @dp.message_handler(text='BTC/USD')
 async def btc(message: types.Message):
     btc = get_btc()
     message_ = f"{btc.baseCurrency}/{btc.quoteCurrency}\nТекущая цена: {btc.price}$\nИзменение в цене за последний час: {btc.change1h}\nИзменение в цене за последние сутки: {btc.change24h}"
-    await message.answer(message_)
+    await message.reply(message_)
 
+#For chat eth
+@dp.message_handler(commands=["eth"])
+async def eth(message: types.Message):
+    eth = get_eth()
+    message_ = f"{eth.baseCurrency}/{eth.quoteCurrency}\nТекущая цена: {eth.price}$\nИзменение в цене за последний час: {eth.change1h}\nИзменение в цене за последние сутки: {eth.change24h}"
+    await message.reply(message_)
+
+#For 1v1 dialog eth
 @dp.message_handler(text='ETH/USD')
 async def eth(message: types.Message):
     eth = get_eth()
     message_ = f"{eth.baseCurrency}/{eth.quoteCurrency}\nТекущая цена: {eth.price}$\nИзменение в цене за последний час: {eth.change1h}\nИзменение в цене за последние сутки: {eth.change24h}"
-    await message.answer(message_)
+    await message.reply(message_)
 
+
+# For chat ton
+@dp.message_handler(commands=["ton"])
+async def ton(message: types.Message):
+    ton = get_ton()
+    message_ = f"{ton.baseCurrency}/{ton.quoteCurrency}\nТекущая цена: {ton.price}$\nИзменение в цене за последний час: {ton.change1h}\nИзменение в цене за последние сутки: {ton.change24h}"
+    await message.reply(message_)
+
+#For 1v1 dialog eth
 @dp.message_handler(text='TONCOIN/USD')
 async def ton(message: types.Message):
     ton = get_ton()
     message_ = f"{ton.baseCurrency}/{ton.quoteCurrency}\nТекущая цена: {ton.price}$\nИзменение в цене за последний час: {ton.change1h}\nИзменение в цене за последние сутки: {ton.change24h}"
-    await message.answer(message_)
+    await message.reply(message_)
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
