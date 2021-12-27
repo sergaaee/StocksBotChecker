@@ -1,7 +1,7 @@
 import calendar
 import logging, time
 from aiogram import Bot, Dispatcher, executor, types
-from keyboard import coin_board
+#from keyboard import coin_board
 from coins_init import  get_btc, get_eth, get_ton
 API_TOKEN = '5010835487:AAH1cu1QtZzRZHi0RSWUdZzBM4VDzHPIgt0'
 
