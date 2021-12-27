@@ -21,6 +21,10 @@ async def send_welcome(message: types.Message):
     """
     await message.answer("Привет, я бот крипто-информатор!\nПредоставляю актуальную информацию о выбранной криптовалюте (цена, изменение цены за последний час/сутки.\nВот список моих команд:\n/ton -Информация о TONCOIN.\n/btc - Информация о биткоине.\n/eth - Информация об эфире.")
 
+# just for knowledge lol
+@dp.message_handler(text = 'бот')
+async def send_ask(message: types.Message):
+    await message.answer("Привет, я бот крипто-информатор!\nПредоставляю актуальную информацию о выбранной криптовалюте (цена, изменение цены за последний час/сутки.\nВот список моих команд:\n/ton -Информация о TONCOIN.\n/btc - Информация о биткоине.\n/eth - Информация об эфире.")
 
 #For chats btc
 @dp.message_handler(commands=["btc"])
