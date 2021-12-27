@@ -1,4 +1,4 @@
-import requests
+import requests, time
 
 
 class coin:
@@ -34,15 +34,17 @@ url = 'https://ftx.com/api/markets'
 r = requests.get(url)
 result = r.json()['result']
 
+while True:
+    time.sleep(10)
+    def get_ton():
+        url = 'https://ftx.com/api/markets'
+        r = requests.get(url)
+        result = r.json()['result']
+        ton = coin(baseCurrency=result[570]['baseCurrency'], quoteCurrency=result[570]['quoteCurrency'],
+                   price=result[570]['price'], change1h=round(result[570]['change1h'], 4) * 100,
+                   change24h=round(result[570]['change24h'], 4) * 100)
+        return ton
 
-def get_ton():
-    url = 'https://ftx.com/api/markets'
-    r = requests.get(url)
-    result = r.json()['result']
-    ton = coin(baseCurrency=result[570]['baseCurrency'], quoteCurrency=result[570]['quoteCurrency'],
-               price=result[570]['price'], change1h=round(result[570]['change1h'], 4) * 100,
-               change24h=round(result[570]['change24h'], 4) * 100)
-    return ton
 
 
 # pos=0

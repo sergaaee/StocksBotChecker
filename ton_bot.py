@@ -1,5 +1,4 @@
-import calendar
-import logging, time
+import logging
 from aiogram import Bot, Dispatcher, executor, types
 #from keyboard import coin_board
 from coins_init import get_ton
