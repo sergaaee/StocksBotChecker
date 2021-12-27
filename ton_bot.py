@@ -1,4 +1,6 @@
 import logging
+import time
+from db import db
 from aiogram import Bot, Dispatcher, executor, types
 #from keyboard import coin_board
 from coins_init import get_ton
@@ -14,22 +16,29 @@ dp = Dispatcher(bot)
 
 
 
+
 #reply_markup=coin_board
 @dp.message_handler(commands=['start', 'help'])
 async def send_welcome(message: types.Message):
-    """
-    This handler will be called when user sends `/start` or `/help` command
-    """
-    await message.answer("Привет, я бот крипто-информатор!\nПредоставляю актуальную информацию о ТОНе (цена, изменение цены за последний час/сутки.\n\nВот список моих команд:\n/ton -Информация о TONCOIN.\n\nОбсуждение TON - тут: @TONcoinTrading")
+    # db connect
+    db(message.from_user.id, time.asctime())
+    await message.reply(
+        "Привет, я бот крипто-информатор!\nПредоставляю актуальную информацию о ТОНе (цена, изменение цены за последний час/сутки.\n\nВот список моих команд:\n/ton -Информация о TONCOIN.\n\nОбсуждение TON - тут: @TONcoinTrading")
 
 # just for knowledge lol
 @dp.message_handler(text = 'бот')
 async def send_ask(message: types.Message):
-    await message.answer("Привет, я бот крипто-информатор!\nПредоставляю актуальную информацию о выбранной криптовалюте (цена, изменение цены за последний час/сутки.\n\nВот список моих команд:\n/ton -Информация о TONCOIN.")
+    # db connect
+    db(message.from_user.id, time.asctime())
+    await message.reply(
+        "Привет, я бот крипто-информатор!\nПредоставляю актуальную информацию о ТОНе (цена, изменение цены за последний час/сутки.\n\nВот список моих команд:\n/ton -Информация о TONCOIN.\n\nОбсуждение TON - тут: @TONcoinTrading")
 
 @dp.message_handler(text = '@GITBTbot')
 async def send_ask(message: types.Message):
-    await message.answer("Привет, я бот крипто-информатор!\nПредоставляю актуальную информацию о выбранной криптовалюте (цена, изменение цены за последний час/сутки.\n\nВот список моих команд:\n/ton -Информация о TONCOIN.")
+    # db connect
+    db(message.from_user.id, time.asctime())
+    await message.reply(
+        "Привет, я бот крипто-информатор!\nПредоставляю актуальную информацию о ТОНе (цена, изменение цены за последний час/сутки.\n\nВот список моих команд:\n/ton -Информация о TONCOIN.\n\nОбсуждение TON - тут: @TONcoinTrading")
 
 
 
@@ -37,16 +46,21 @@ async def send_ask(message: types.Message):
 # For chat ton
 @dp.message_handler(commands=["ton"])
 async def ton(message: types.Message):
+    # db connect
+    db(message.from_user.id, time.asctime())
     ton = get_ton()
-    message_ = f"{ton.baseCurrency}/{ton.quoteCurrency}\nТекущая цена: {ton.price}$\nИзменение в цене за последний час: {ton.change1h}\nИзменение в цене за последние сутки: {ton.change24h}"
+    message_ = f"TON/USD\nТекущая цена: {ton.price}$\nИзменение в цене за последний час: {ton.change1h}\nИзменение в цене за последние сутки: {ton.change24h}"
     await message.reply(message_)
 
 #For 1v1 dialog ton
 @dp.message_handler(text='TONCOIN/USD')
 async def ton(message: types.Message):
+    # db connect
+    db(message.from_user.id, time.asctime())
     ton = get_ton()
-    message_ = f"{ton.baseCurrency}/{ton.quoteCurrency}\nТекущая цена: {ton.price}$\nИзменение в цене за последний час: {ton.change1h}\nИзменение в цене за последние сутки: {ton.change24h}"
+    message_ = f"TON/USD\nТекущая цена: {ton.price}$\nИзменение в цене за последний час: {ton.change1h}\nИзменение в цене за последние сутки: {ton.change24h}"
     await message.reply(message_)
+
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
