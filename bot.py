@@ -12,12 +12,14 @@ bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
 
 
+
+#reply_markup=coin_board
 @dp.message_handler(commands=['start', 'help'])
 async def send_welcome(message: types.Message):
     """
     This handler will be called when user sends `/start` or `/help` command
     """
-    await message.reply("Привет, я бот крипто-информатор! \n Что тебя интересует?", reply_markup=coin_board)
+    await message.answer("Привет, я бот крипто-информатор!\nПредоставляю актуальную информацию о выбранной криптовалюте (цена, изменение цены за последний час/сутки.\nВот список моих команд:\n/ton -Информация о TONCOIN.\n/btc - Информация о биткоине.\n/eth - Информация об эфире.")
 
 
 #For chats btc
