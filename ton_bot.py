@@ -17,8 +17,6 @@ dp = Dispatcher(bot)
 
 
 
-
-
 #reply_markup=coin_board
 @dp.message_handler(commands=['start', 'help'])
 async def send_welcome(message: types.Message):
