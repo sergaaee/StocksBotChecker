@@ -35,24 +35,6 @@ r = requests.get(url)
 result = r.json()['result']
 
 
-def get_btc():
-    url = 'https://ftx.com/api/markets'
-    r = requests.get(url)
-    result = r.json()['result']
-    btc = coin(baseCurrency=result[150]['baseCurrency'], quoteCurrency=result[150]['quoteCurrency'],
-               price=result[150]['price'], change1h=round(result[150]['change1h'], 4) * 100,
-               change24h=round(result[150]['change24h'], 4) * 100)
-    return btc
-
-def get_eth():
-    url = 'https://ftx.com/api/markets'
-    r = requests.get(url)
-    result = r.json()['result']
-    eth = coin(baseCurrency=result[260]['baseCurrency'], quoteCurrency=result[260]['quoteCurrency'],
-               price=result[260]['price'], change1h=round(result[260]['change1h'], 4) * 100,
-               change24h=round(result[260]['change24h'], ) * 100)
-    return eth
-
 def get_ton():
     url = 'https://ftx.com/api/markets'
     r = requests.get(url)
