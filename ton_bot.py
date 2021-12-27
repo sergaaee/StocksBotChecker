@@ -17,6 +17,8 @@ dp = Dispatcher(bot)
 
 
 
+
+
 #reply_markup=coin_board
 @dp.message_handler(commands=['start', 'help'])
 async def send_welcome(message: types.Message):
@@ -39,7 +41,7 @@ async def send_ask(message: types.Message):
     check_user(message.from_user.id, time.asctime())
     await message.reply(
         "Привет, я бот крипто-информатор!\nПредоставляю актуальную информацию о ТОНе (цена, изменение цены за последний час/сутки.\n\nВот список моих команд:\n/ton -Информация о TONCOIN.\n\nОбсуждение TON - тут: @TONcoinTrading")
-
+    time.sleep(3)
 
 
 
@@ -56,12 +58,11 @@ async def ton(message: types.Message):
 @dp.message_handler(text='TONCOIN/USD')
 async def ton(message: types.Message):
     # db connect
-
     price, change1h, change24h = coin_info()
     check_user(message.from_user.id, time.asctime())
     message_ = f"TON/USD\nТекущая цена: {price}$\nИзменение в цене за последний час: {change1h}\nИзменение в цене за последние сутки: {change24h}"
     await message.reply(message_)
-
+    time.sleep(5)
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)

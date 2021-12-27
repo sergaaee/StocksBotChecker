@@ -1,5 +1,5 @@
 import requests
-
+from decimal import Decimal
 
 
 
@@ -9,8 +9,8 @@ def get_ton():
     r = requests.get(url)
     result = r.json()['result']
     ton = coin(
-               price=result[570]['price'], change1h=round(result[570]['change1h'], 4) * 100,
-               change24h=round(result[570]['change24h'], 4) * 100)
+               price=result[570]['price'], change1h=Decimal(result[570]['change1h']).quantize(Decimal("1.0000")) * 100,
+               change24h=Decimal(result[570]['change24h']).quantize(Decimal("1.0000")) * 100)
     return ton
 
 
