@@ -2,9 +2,6 @@ import sqlite3
 from coin_init import get_ton
 
 
-
-# db connect
-
 # Adding user_id and time of his last massage to the database
 def check_user(user_id, time):
     conn = sqlite3.connect('data.db')
