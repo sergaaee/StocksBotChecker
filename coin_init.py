@@ -28,7 +28,6 @@ def get_ton():
     getcontext().prec = 3
     change_1h = Decimal(result[570]['change1h'])*100
     change_24h = Decimal(result[570]['change24h'])*100
-    print(change_1h, change_24h)
     ton = coin(
                price=result[570]['price'], change1h=change_1h,
                change24h=change_24h)
