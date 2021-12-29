@@ -3,11 +3,11 @@ from coin_init import get_ton
 
 
 # Adding user_id and time of his last massage to the database
-def check_user(user_id, time):
+def check_user(user_id, time, chat_id):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
     cur.execute('''INSERT OR IGNORE INTO user (user_id) VALUES (?)''', (user_id,))
-    cur.execute('''UPDATE user SET time = ? WHERE user_id = ?''', (time, user_id))
+    cur.execute('''UPDATE user SET time = ?, chat_id = ? WHERE user_id = ?''', (time, chat_id, user_id))
     conn.commit()
     conn.close()
 

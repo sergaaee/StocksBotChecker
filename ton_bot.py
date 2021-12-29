@@ -1,15 +1,14 @@
 import logging
 import time
-from db import check_user, coin_info
+from db import check_user, coin_info, jump_check
 from aiogram import Bot, Dispatcher, executor, types
 import asyncio
 
 # 123
 
-API_TOKEN = '5068408579:AAGEJYcgmuaileUgpZZAqg8BdLLBr1MITS8'
+API_TOKEN = '5010835487:AAH1cu1QtZzRZHi0RSWUdZzBM4VDzHPIgt0'
 
-# Configure logging
-logging.basicConfig(level=logging.INFO)
+
 
 # Initialize bot and dispatcher
 bot = Bot(token=API_TOKEN)
@@ -49,7 +48,7 @@ async def send_ask1(message: types.Message):
 async def ton(message: types.Message):
     # db connect
     price, change1h, change24h = coin_info()
-    check_user(message.from_user.id, time.asctime())
+    check_user(message.from_user.id, time.asctime(), message.chat.id)
     message_ = f"TON/USD\nТекущая цена: {price}$\nИзменение в цене за последний час: {change1h}\nИзменение в цене за последние сутки: {change24h}"
     await message.reply(message_)
     time.sleep(5)
@@ -60,37 +59,30 @@ async def ton(message: types.Message):
 async def ton(message: types.Message):
     # db connect
     price, change1h, change24h = coin_info()
-    check_user(message.from_user.id, time.asctime())
+    check_user(message.from_user.id, time.asctime(), message.chat.id)
     message_ = f"TON/USD\nТекущая цена: {price}$\nИзменение в цене за последний час: {change1h}\nИзменение в цене за последние сутки: {change24h}"
     await message.reply(message_)
     time.sleep(5)
 
 
-async def _bot():
-    executor.start_polling(dp, skip_updates=True)
+# jump checker
+async def jump():
+    """background task which is created when bot starts"""
+    while True:
+        await asyncio.sleep(60)
+        if jump_check():
+            await bot.send_message(-1001784059306, "work")
+
+async def start_check(dispatcher: Dispatcher):
+    """List of actions which should be done before bot start"""
+    asyncio.create_task(jump())  # creates background task
 
 
-async def _get_check():
-    try:
-        while True:
-            # request
-            await bot.send_message(479449574, "213")
-            time.sleep(30)
-
-    except:
-        return False
-
-
-async def main():
-    bot_loop = loop.create_task(_bot())
-    demon = loop.create_task(_get_check())
-    await asyncio.wait([bot_loop, demon])
 
 
 if __name__ == '__main__':
+    # Configure logging
+    logging.basicConfig(level=logging.INFO)
+    # bot start
+    executor.start_polling(dp, skip_updates=True, on_startup=start_check)
 
-    try:
-        loop = asyncio.get_event_loop()
-        loop.run_until_complete(main())
-    except:
-        print('ERROR')
