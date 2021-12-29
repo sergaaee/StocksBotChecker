@@ -4,6 +4,7 @@ from db import check_user, coin_info, jump_check
 from aiogram import Bot, Dispatcher, executor, types
 import asyncio
 
+
 # 123
 
 API_TOKEN = '5010835487:AAH1cu1QtZzRZHi0RSWUdZzBM4VDzHPIgt0'
@@ -68,10 +69,17 @@ async def ton(message: types.Message):
 # jump checker
 async def jump():
     """background task which is created when bot starts"""
+
     while True:
         await asyncio.sleep(60)
-        if jump_check():
-            await bot.send_message(-1001784059306, "work")
+        jump = jump_check()
+        if jump != 0:
+            if jump > 0:
+                await bot.send_message(-1001784059306,
+                                       f"🟢🟢🟢🟢🟢🟢\nОбнаружено резкое повышение цены TON за последнюю минуту!\nИзменение составило: {jump}%")
+            else:
+                await bot.send_message(-1001784059306,
+                                       f"🔴🔴🔴🔴🔴\nОбнаружено резкое паденеие цены TON за последнюю минуту!\nИзменение составило: {jump}%")
 
 async def start_check(dispatcher: Dispatcher):
     """List of actions which should be done before bot start"""

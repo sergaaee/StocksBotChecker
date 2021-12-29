@@ -1,6 +1,6 @@
 import sqlite3
 from coin_init import get_ton
-
+from decimal import *
 
 # Adding user_id and time of his last massage to the database
 def check_user(user_id, time, chat_id):
@@ -39,6 +39,7 @@ def jump_check():
     price = float(cur.fetchone()[0])
     jump = price - last_price # вычитаем из старой стоимости новую(обновленную только что)
     if abs(jump) >= price/10:
-        return True
+        getcontext().prec = 3
+        return Decimal(jump).quantize(Decimal("1.000"))
     conn.close()
-    return False
+    return 0
