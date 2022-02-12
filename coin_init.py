@@ -33,7 +33,7 @@ def get_ton():
                change24h=change_24h)
     return ton
 
-ton = get_ton()
+
 
 
 

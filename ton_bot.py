@@ -7,7 +7,7 @@ import asyncio
 
 # 123
 
-API_TOKEN = '5010835487:AAH1cu1QtZzRZHi0RSWUdZzBM4VDzHPIgt0'
+API_TOKEN = 'BOT_TOKEN'
 
 
 
