@@ -20,18 +20,26 @@ class coin:
     def change24h(self):
         return str(self._change24h) + "%"
 
+
 # getting data about ton
 def get_ton():
     url = 'https://ftx.com/api/markets'
     r = requests.get(url)
     result = r.json()['result']
+    id = 0
+    for i in result:
+        id += 1
+        if i['name'] == "TONCOIN/USD":
+            break
     getcontext().prec = 3
-    change_1h = Decimal(result[570]['change1h'])*100
-    change_24h = Decimal(result[570]['change24h'])*100
+    change_1h = Decimal(result[id - 1]['change1h']) * 100
+    change_24h = Decimal(result[id - 1]['change24h']) * 100
     ton = coin(
-               price=result[570]['price'], change1h=change_1h,
+               price=result[id - 1]['price'], change1h=change_1h,
                change24h=change_24h)
     return ton
+
+
 
 
 
